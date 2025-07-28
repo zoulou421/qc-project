@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="qcproject.list">
+      <field name="name">qcproject list</field>
+      <field name="model">qcproject.qcproject</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="qcproject.action_window">
+      <field name="name">qcproject window</field>
+      <field name="res_model">qcproject.qcproject</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="qcproject.action_server">
+      <field name="name">qcproject server</field>
+      <field name="model_id" ref="model_qcproject_qcproject"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="qcproject" id="qcproject.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="qcproject.menu_1" parent="qcproject.menu_root"/>
+    <menuitem name="Menu 2" id="qcproject.menu_2" parent="qcproject.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="qcproject.menu_1_list" parent="qcproject.menu_1"
+              action="qcproject.action_window"/>
+    <menuitem name="Server to list" id="qcproject" parent="qcproject.menu_2"
+              action="qcproject.action_server"/>
+-->
+  </data>
+</odoo>

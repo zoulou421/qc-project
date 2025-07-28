@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <menuitem id="menu_qcproject_root" name="QC Project 📊" sequence="10" groups="qcproject.qcproject_group_employee,qcproject.qcproject_group_manager,qcproject.qcproject_group_admin" web_icon="qcproject,static/description/icon.png"/>
+
+        <menuitem id="menu_qcproject_task_management" name="Gestion Work Program 📋" parent="menu_qcproject_root" sequence="30" groups="qcproject.qcproject_group_employee,qcproject.qcproject_group_manager,qcproject.qcproject_group_admin"/>
+        <menuitem id="menu_work_program" name="Work Program 📅" parent="menu_qcproject_task_management" action="action_work_program" sequence="40" groups="qcproject.qcproject_group_employee,qcproject.qcproject_group_manager,qcproject.qcproject_group_admin"/>
+
+
+        <menuitem id="menu_workflow_management" name="Gestion Cadres de references🌐" parent="menu_qcproject_root" sequence="50"/>
+        <menuitem id="menu_workflow_hierarchy" name="Cadres de references 📈" parent="menu_workflow_management" action="action_workflow_hierarchy" sequence="10"/>
+        <menuitem id="menu_workflow_domain" name="Domaines🌐" parent="menu_workflow_management" action="action_workflow_domain" sequence="20"/>
+        <menuitem id="menu_workflow_process" name="Processus⚙️" parent="menu_workflow_management" action="action_workflow_process" sequence="30"/>
+        <menuitem id="menu_workflow_subprocess" name="Sous-processus📝" parent="menu_workflow_management" action="action_workflow_subprocess" sequence="40"/>
+        <menuitem id="menu_workflow_activity" name="Activités🧩" parent="menu_workflow_management" action="action_workflow_activity" sequence="50"/>
+        <menuitem id="menu_workflow_procedure" name="Procédures📜" parent="menu_workflow_management" action="action_workflow_procedure" sequence="60"/>
+        <menuitem id="menu_workflow_deliverable" name="Livrables✅" parent="menu_workflow_management" action="action_workflow_deliverable" sequence="70"/>
+        <menuitem id="menu_workflow_task_formulation" name="Formulations de Tâches📝" parent="menu_workflow_management" action="action_workflow_task_formulation" sequence="80"/>
+
+    </data>
+</odoo>

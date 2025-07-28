@@ -1,0 +1,26 @@
+/* Apply background image to the entire page when qcproject.employee tree view is active */
+.o_action_manager:has(.o_list_view.qcproject-employee-tree) {
+    background-image: url('/qcproject/static/images/employee.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Ensure content remains readable with a semi-transparent overlay */
+.o_action_manager:has(.o_list_view.qcproject-employee-tree) .o_list_view {
+    background-color: rgba(255, 255, 255, 0.85); /* Slight transparency for readability */
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* Optional: Style table rows for better contrast */
+.o_action_manager:has(.o_list_view.qcproject-employee-tree) .o_data_row {
+    background-color: transparent;
+}
+
+/* Ensure other elements (e.g., header, breadcrumbs) don't inherit the background */
+.o_action_manager:has(.o_list_view.qcproject-employee-tree) .o_main_navbar,
+.o_action_manager:has(.o_list_view.qcproject-employee-tree) .o_control_panel {
+    background-color: #f8f9fa; /* Default Odoo background for navbar and control panel */
+}
