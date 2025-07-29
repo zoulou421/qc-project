@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data>
         <menuitem id="menu_qcproject_root" name="QC Project 📊" sequence="10" groups="qcproject.qcproject_group_employee,qcproject.qcproject_group_manager,qcproject.qcproject_group_admin" web_icon="qcproject,static/description/icon.png"/>
 
         <menuitem id="menu_qcproject_task_management" name="Gestion Work Program 📋" parent="menu_qcproject_root" sequence="30" groups="qcproject.qcproject_group_employee,qcproject.qcproject_group_manager,qcproject.qcproject_group_admin"/>

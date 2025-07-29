@@ -12,7 +12,7 @@
     'depends': ['base','web','project', 'mail', 'hr'],
     'data': [
         'security/qc_project_security.xml',
-        'data/practice_data.xml',  # Ajoutez ici
+        #'data/practice_data.xml',  # Ajoutez ici
         'views/qcproject_actions.xml',
         'views/qcproject_menus.xml',
         'views/qcproject_employee_view.xml',
