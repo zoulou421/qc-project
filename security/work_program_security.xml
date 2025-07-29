@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Access Rights for Work Program Model -->
+    <!-- Employee access: read-only -->
+    <record id="qcproject_access_work_program_employee" model="ir.model.access">
+        <field name="name">Work Program Access (Read-Only)</field>
+        <field name="model_id" ref="model_work_program"/>
+        <field name="group_id" ref="qcproject.qcproject_group_employee"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Manager access: read, write, create -->
+    <record id="qcproject_access_work_program_manager" model="ir.model.access">
+        <field name="name">Work Program Access (Read/Write/Create)</field>
+        <field name="model_id" ref="model_work_program"/>
+        <field name="group_id" ref="qcproject.qcproject_group_manager"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Admin access: full permissions -->
+    <record id="qcproject_access_work_program_admin" model="ir.model.access">
+        <field name="name">Work Program Access (Full Permissions)</field>
+        <field name="model_id" ref="model_work_program"/>
+        <field name="group_id" ref="qcproject.qcproject_group_admin"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <!-- Record Rules for Work Program Model -->
+    <!-- Restrict employees to work programs in their department's projects or where they are responsible/support -->
+    <record id="qcproject_work_program_own_department" model="ir.rule">
+        <field name="name">Work Program: Own Department or Assigned Records</field>
+        <field name="model_id" ref="model_work_program"/>
+        <field name="groups" eval="[(4, ref('qcproject.qcproject_group_employee'))]"/>
+        <field name="domain_force">['|', ('project_id.department_id', 'in', user.employee_id.department_id.ids), '|', ('responsible_id.user_id', '=', user.id), ('support_ids.user_id', 'in', [user.id])]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Managers and Admins can access all work programs -->
+    <record id="qcproject_work_program_all_records" model="ir.rule">
+        <field name="name">Work Program: All Records</field>
+        <field name="model_id" ref="model_work_program"/>
+        <field name="groups" eval="[(4, ref('qcproject.qcproject_group_manager')), (4, ref('qcproject.qcproject_group_admin'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+</odoo>
