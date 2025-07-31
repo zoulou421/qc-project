@@ -8,11 +8,13 @@
                 <field name="user_id" string="Utilisateur associé" options="{'no_create_edit': True}" class="form-control"/>
                 <field name="name" string="Nom du programme" invisible="1"/>
                 <field name="my_month" widget="selection" string="Mois"/>
-                <field name="week_of" string="Semaine de"/>
+                <field name="my_week_of" string="Semaine de" />
+                <field name="week_of" string="Semaine de" invisible="1"/>
                 <field name="project_id" string="Projet / Programme" widget="many2one"/>
                 <field name="activity_id" string="Activité" widget="many2one" domain="[('sub_process_id.process_id.domain_id', '=', project_id)]"/>
-                <field name="procedure_id" string="Type de tâche (Procédure)" widget="many2one" domain="[('activity_id', '=', activity_id)]"/>
-                <field name="task_description_id" string="Description de la tâche" widget="many2one" domain="[('procedure_id', '=', procedure_id)]"/>
+                <field name="procedure_id" string="Procedure" widget="many2one" domain="[('activity_id', '=', activity_id)]"/>
+                <field name="task_description_id" string="Formulation Tâche" widget="many2one" domain="[('procedure_id', '=', procedure_id)]"/>
+                <field name="inputs_needed" string="Description Tâche"/>
                 <field name="deliverable_ids" string="Livrables de la tâche" widget="many2many_tags"/>
                 <field name="priority" widget="selection" string="Priorité"/>
                 <field name="complexity" widget="selection" string="Complexité"/>
@@ -42,17 +44,16 @@
                             <field name="user_id" string="Utilisateur associé " options="{'no_create_edit': True}" class="form-control"/>
                             <field name="name" string="Nom du programme" invisible="1"/>
                             <field name="my_month" widget="selection" string="Mois" />
-
                             <field name="week_of" string="Semaine de" invisible="1"/>
-
                             <field name="my_week_of" string="Selection semaine en cours"/>
 
                             <field name="project_id" string="Projet / Programme" widget="many2one"/>
                         </group>
                         <group string="Détails de la Tâche">
                             <field name="activity_id" string="Activité" widget="many2one" domain="[('sub_process_id.process_id.domain_id', '=', project_id)]"/>
-                            <field name="procedure_id" string="Type de tâche (Procédure)" widget="many2one" domain="[('activity_id', '=', activity_id)]"/>
-                            <field name="task_description_id" string="Description de la tâche" widget="many2one" domain="[('procedure_id', '=', procedure_id)]"/>
+                            <field name="procedure_id" string="Procedure" widget="many2one" domain="[('activity_id', '=', activity_id)]"/>
+                            <field name="task_description_id" string="Formulation Tâche" widget="many2one" domain="[('procedure_id', '=', procedure_id)]"/>
+                            <field name="inputs_needed" string="Description de la tâche"/>
                             <field name="deliverable_ids" string="Livrables de la tâche" widget="many2many_tags"/>
                         </group>
                     </group>
@@ -77,7 +78,7 @@
                         <field name="comments" string="Commentaires / Remarques" widget="text"/>
                     </group>
                 </sheet>
-                
+
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
                     <field name="activity_ids" widget="mail_activity"/>
