@@ -40,6 +40,7 @@
             'qcproject/static/css/employee_styles.css',
             'qcproject/static/js/employee_scripts.js',
             'qcproject/static/css/employee_page.css',
+            'qcproject/static/css/work_program.css',
         ],
         'web.assets_common': [
             # Optional: Add if hosting Animate.css locally

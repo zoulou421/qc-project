@@ -1,31 +1,26 @@
 # -*- coding: utf-8 -*-
+import calendar
+import locale
 import logging
-from odoo import models, api, fields
+from email.policy import default
+from datetime import datetime, date, timedelta
+
+from odoo import models, api, fields, _
 from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
 class WorkProgram(models.Model):
     _name = 'work.program'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Programme de travail'
 
-    user_id = fields.Many2one('res.users', string='Utilisateur Associé')
+    user_id = fields.Many2one('res.users',default=lambda self: self.env.user ,string='Utilisateur Associé')
     name = fields.Char(string='Nom du programme', default='Nouveau programme')
-    month = fields.Selection([
-        ('january', 'Janvier'),
-        ('february', 'Février'),
-        ('march', 'Mars'),
-        ('april', 'Avril'),
-        ('may', 'Mai'),
-        ('june', 'Juin'),
-        ('july', 'Juillet'),
-        ('august', 'Août'),
-        ('september', 'Septembre'),
-        ('october', 'Octobre'),
-        ('november', 'Novembre'),
-        ('december', 'Décembre')
-    ], string='Mois', required=True)
+
     week_of = fields.Integer(string='Semaine de', help="Numéro de semaine dans l'année")
+
+
     project_id = fields.Many2one('workflow.domain', string='Projet / Programme', ondelete='restrict')
     activity_id = fields.Many2one('workflow.activity', string='Activité', ondelete='restrict')
     procedure_id = fields.Many2one('workflow.procedure', string='Type de tâche (Procédure)', ondelete='restrict')
@@ -114,7 +109,7 @@ class WorkProgram(models.Model):
         try:
             vals = {
                 'name': row.get('Task Description', 'Nouveau programme'),
-                'month': row.get('Month', '').lower() if row.get('Month') else False,
+                'my_month': row.get('Month', '').lower() if row.get('Month') else False,
                 'week_of': int(row.get('Week of')) if row.get('Week of') else False,
                 'inputs_needed': row.get('Inputs needed (If applicable)'),
                 'priority': row.get('Priority', 'medium').lower() if row.get('Priority') else 'medium',
@@ -189,3 +184,44 @@ class WorkProgram(models.Model):
                 'comments': f"Échec de l'importation : {row}. Erreur : {e}",
                 'status': 'cancelled'
             })
+
+    def _get_default_current_month(self):
+        return _(calendar.month_name[int(datetime.now().strftime("%m"))])
+
+    def _get_default_current_month_selection(self):
+        return [(_(calendar.month_name[i]),_(calendar.month_name[i])) for i in range(1,13)]
+
+    my_month = fields.Selection(selection=_get_default_current_month_selection,
+                             default=_get_default_current_month,string='Mois')
+
+    def _get_default_my_week(self):
+        today = date.today()
+        current_monday = today - timedelta(days=today.weekday())
+        return current_monday.strftime("%Y-%m-%d")
+
+    def _get_week_selection(self):
+        my_week = []
+        current_year = date.today().year
+        january_first = date(current_year, 1, 1)
+        monday_first = january_first - timedelta(days=january_first.weekday())
+        for i in range(0,53):
+            week_start = monday_first + timedelta(weeks=i)
+            if week_start.year > current_year:
+                break
+            my_day = week_start.day
+            my_month_name = _(week_start.strftime("%B"))
+            my_label = f"{my_day} - {my_month_name}"
+            my_value = week_start.strftime("%Y-%m-%d")
+            my_week.append((my_value, my_label))
+        return my_week
+
+    my_week_of =fields.Selection(
+        selection=_get_week_selection,
+        default=_get_default_my_week,
+        string="Selection week"
+    )
+
+
+
+
+
